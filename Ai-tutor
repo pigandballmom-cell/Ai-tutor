@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ThinkSmart Tutor</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; }
+    #chat { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;}
+    input { width: 75%; padding: 8px; }
+    button { padding: 8px; }
+  </style>
+</head>
+<body>
+
+<h2>ThinkSmart Tutor</h2>
+<div id="chat"></div>
+
+<input type="text" id="userInput" placeholder="Ask your question..." />
+<button onclick="sendMessage()">Ask</button>
+
+<script>
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chat = document.getElementById("chat");
+  const userMessage = input.value;
+
+  chat.innerHTML += "<b>Student:</b> " + userMessage + "<br>";
+  input.value = "";
+
+  const response = await fetch("/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMessage })
+  });
+
+  const data = await response.json();
+  chat.innerHTML += "<b>Tutor:</b> " + data.reply + "<br><br>";
+  chat.scrollTop = chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>

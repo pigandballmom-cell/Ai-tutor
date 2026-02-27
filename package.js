@@ -1,0 +1,10 @@
+{
+  "name": "thinksmart-tutor",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "openai": "^4.0.0"
+  }
+}
